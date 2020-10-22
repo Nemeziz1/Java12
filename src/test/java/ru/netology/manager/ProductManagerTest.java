@@ -26,17 +26,19 @@ public class ProductManagerTest {
     Product one = new Smartphone(1, "Samsung", 20000, "Korea");
     Product two = new Book(2, "detective", 500,  "Agatha Christie");
     Product three = new Book(3, "fairytale", 400, "Pushkin");
+    Product four = new Product(4, "TV", 10000);
 
     @BeforeEach
     public void SetUp() {
         productManager.add(one);
         productManager.add(two);
         productManager.add(three);
+        productManager.add(four);
     }
 
     @Test
     public void checkSearchBookName() {
-        Product[] returned = new Product[] {one, two, three};
+        Product[] returned = new Product[] {one, two, three, four};
         doReturn(returned).when(productRepository).findAll();
         Product[] expected = new Product[]{two};
         Product[] actual = productManager.searchBy("detective");
@@ -45,7 +47,7 @@ public class ProductManagerTest {
 
     @Test
     public void checkSearchSmartphoneProducer() {
-        Product[] returned = new Product[] {one, two, three};
+        Product[] returned = new Product[] {one, two, three, four};
         doReturn(returned).when(productRepository).findAll();
         Product[] expected = new Product[]{one};
         Product[] actual = productManager.searchBy("Korea");
@@ -54,7 +56,7 @@ public class ProductManagerTest {
 
     @Test
     public void checkSearchSmartphoneName() {
-        Product[] returned = new Product[] {one, two, three};
+        Product[] returned = new Product[] {one, two, three, four};
         doReturn(returned).when(productRepository).findAll();
         Product[] expected = new Product[]{one};
         Product[] actual = productManager.searchBy("Samsung");
@@ -63,7 +65,7 @@ public class ProductManagerTest {
 
     @Test
     public void checkSearchBookAuthor() {
-        Product[] returned = new Product[] {one, two, three};
+        Product[] returned = new Product[] {one, two, three, four};
         doReturn(returned).when(productRepository).findAll();
         Product[] expected = new Product[]{three};
         Product[] actual = productManager.searchBy("Pushkin");
@@ -72,10 +74,19 @@ public class ProductManagerTest {
 
     @Test
     public void checkSearchEmpty() {
-        Product[] returned = new Product[] {one, two, three};
+        Product[] returned = new Product[] {one, two, three, four};
         doReturn(returned).when(productRepository).findAll();
         Product[] expected = new Product[]{};
         Product[] actual = productManager.searchBy("iPhone");
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void checkSearchProduct() {
+        Product[] returned = new Product[] {one, two, three, four};
+        doReturn(returned).when(productRepository).findAll();
+        Product[] expected = new Product[]{four};
+        Product[] actual = productManager.searchBy("TV");
         assertArrayEquals(expected, actual);
     }
 }
