@@ -20,6 +20,6 @@ public class Smartphone extends Product {
 
     @Override
     public boolean matches(String search) {
-        return super.matches(search) || search == this.producer;
+        return super.matches(search) || search.equals(this.producer);
     }
 }
