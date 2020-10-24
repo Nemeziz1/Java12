@@ -28,7 +28,7 @@ public class ProductManagerTest {
     Product three = new Book(3, "fairytale", 400, "Pushkin");
 
     @BeforeEach
-    public void SetUp() {
+    public void setUp() {
         productManager.add(one);
         productManager.add(two);
         productManager.add(three);
@@ -78,4 +78,15 @@ public class ProductManagerTest {
         Product[] actual = productManager.searchBy("iPhone");
         assertArrayEquals(expected, actual);
     }
+
+    /*@Test
+    public void checkSearchProducts() {
+        Product[] returned = new Product[] {one, two, three};
+        doReturn(returned).when(productRepository).findAll();
+        productManager.searchBy("Samsung");
+        productManager.searchBy("detective");
+        Product[] expected = new Product[] {one, two};
+        Product[] actual = productManager.searchBy("detective");
+        assertArrayEquals(expected, actual);
+    }*/
 }
